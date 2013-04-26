@@ -19,7 +19,7 @@ from django.conf.urls.defaults import patterns
 from django.conf import settings
 
 urlpatterns = patterns('components.transfer.views',
-    (r'^$', 'transfer_grid'),
+    (r'^$', 'grid'),
     (r'(?P<uuid>' + settings.UUID_REGEX + ')/$', 'transfer_detail'),
     (r'(?P<uuid>' + settings.UUID_REGEX + ')/delete/$', 'transfer_delete'),
     (r'(?P<uuid>' + settings.UUID_REGEX + ')/microservices/$', 'transfer_microservices'),

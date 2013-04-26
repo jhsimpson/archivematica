@@ -34,7 +34,7 @@ import components.decorators as decorators
     @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@ """
 
 @decorators.elasticsearch_required()
-def transfer_grid(request):
+def grid(request):
     if models.SourceDirectory.objects.count() > 0:
         source_directories = models.SourceDirectory.objects.all()
 
