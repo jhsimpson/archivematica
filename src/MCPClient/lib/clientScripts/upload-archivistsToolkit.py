@@ -135,7 +135,7 @@ def upload_to_atk(mylist, atuser, ead_actuate, ead_show, object_type, use_statem
         short_file_name = file_name[37:]
         time_now = strftime("%Y-%m-%d %H:%M:%S", localtime())
         file_uri = uri_prefix  + file_name
-        sql1="select  d.archdescriptioninstancesid, c.resourceComponentId, b.dateBegin, b.dateEnd, b.dateExpression from resourcescomponents a join resourcescomponents b on (a.resourcecomponentid = b.parentresourcecomponentid) join resourcescomponents c on (b.resourcecomponentid = c.parentresourcecomponentid) join archdescriptioninstances d on (c.resourcecomponentid = d.resourcecomponentid) where a.resourceid = 31 and d.container1numericindicator = '%s' and d.container2numericindicator = '%s'" % ( container1, container2);
+        sql1="select  d.archdescriptioninstancesid, c.resourceComponentId, b.dateBegin, b.dateEnd, b.dateExpression, b.title from resourcescomponents a join resourcescomponents b on (a.resourcecomponentid = b.parentresourcecomponentid) join resourcescomponents c on (b.resourcecomponentid = c.parentresourcecomponentid) join archdescriptioninstances d on (c.resourcecomponentid = d.resourcecomponentid) where a.resourceid = 31 and d.container1numericindicator = '%s' and d.container2numericindicator = '%s'" % ( container1, container2);
 #sql1 = "select a.archDescriptionInstancesId, a.resourceComponentId, b.dateBegin, b.dateEnd, b.dateExpression from ArchDescriptionInstances a join ResourcesComponents b on a.resourceComponentId = b.resourceComponentId where (container1numericIndicator = '%s' and container2NumericIndicator = '%s')" % ( container1, container2);
         logger.info('sql1:' + sql1) 
         cursor.execute(sql1)
@@ -145,6 +145,15 @@ def upload_to_atk(mylist, atuser, ead_actuate, ead_show, object_type, use_statem
         dateBegin = data[2]
         dateEnd = data[3]
         dateExpression = data[4]
+        rc_title = data[5]
+        
+        if rc_title:
+            short_file_name = rc_title
+        else:
+            if dateExpression:
+                short_file_name = dateExpression
+            else:
+                short_file_name = dateBegin + '-' + dateEnd
  
         logger.debug( "found archDescriptionInstancesId " + str(archDID) + ", rcid " + str(rcid))
 
