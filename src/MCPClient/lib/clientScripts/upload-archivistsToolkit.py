@@ -88,7 +88,7 @@ def get_files_from_dip(dip_location, dip_name, dip_uuid):
     # get a directory listing
     # for each item, set fileName and go
     try:
-        mydir = dip_location + dip_name + "-" + dip_uuid + "/objects/"
+        mydir = dip_location + "/objects/"
         mylist = list(recursive_file_gen(mydir))
         
         if len(mylist) > 0:
